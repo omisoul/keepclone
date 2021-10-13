@@ -16,7 +16,7 @@ class DisplayAddTaskActivity: AppCompatActivity()  {
         val cancel:Button = findViewById(R.id.cancel_button)
         val confirm:Button = findViewById(R.id.add_task_button)
         val category_spinner:Spinner = findViewById(R.id.category_spinner)
-        val output:Intent = Intent()
+
 
 
         cancel.setOnClickListener {
