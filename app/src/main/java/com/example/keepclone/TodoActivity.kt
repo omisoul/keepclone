@@ -19,8 +19,8 @@ class TodoActivity : AppCompatActivity() {
             Todo("Finish android dev designs", "Work", "9:30PM", "I'm a bit tired", false)
         )
 
-//        val adapter = TodoAdapter(todosList)
-//        rvTodos.adapter = adapter
-//        rvTodos.layoutManager = LinearLayoutManager(this)
+        val adapter = TodoAdapter(todosList)
+        rvTodos.adapter = adapter
+        rvTodos.layoutManager = LinearLayoutManager(this)
     }
 }

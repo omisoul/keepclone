@@ -21,6 +21,7 @@
     <!-- Labels -->
     <string name="category">Category</string>
     <string name="due_date">Due Date</string>
+    <string name="todo_name"><b>TODO List</b></string>
 
     <!-- Text input fields -->
     <string name="add_todo_title">Enter todo title</string>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view"
+    >
+
+    <group android:checkableBehavior="single">
+        <item android:id="@+id/all_filter"
+            android:icon="@drawable/all_filter"
+            android:title="All" />
+
+        <item android:id="@+id/today_filter"
+            android:icon="@drawable/cal_today_filter"
+            android:title="Today" />
+
+        <item android:id="@+id/school_filter"
+            android:icon="@drawable/school_filter"
+            android:title="School" />
+
+        <item android:id="@+id/personal_filter"
+            android:icon="@drawable/personal_filter"
+            android:title="Personal" />
+
+        <item android:id="@+id/complete_filter"
+            android:icon="@drawable/complete_filter"
+            android:title="Complete" />
+
+        <item android:id="@+id/overdue_filter"
+            android:icon="@drawable/overdue_filter"
+            android:title="Overdue" />
+
+        <item android:id="@+id/create_filter"
+            android:icon="@drawable/create_filter"
+            android:title="Create New List" />
+
+
+    </group>
+
+</menu>
