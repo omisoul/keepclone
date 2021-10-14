@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId){
             R.id.notification_bell-> {
-                Intent(this, Notifications::class.java).also{
+                Intent(this, NotificationsActivity::class.java).also{
                     startActivity(it)
                 }
                 return true

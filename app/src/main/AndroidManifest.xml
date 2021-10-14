@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Keepclone">
         <activity
-            android:name=".Notifications"
+            android:name=".NotificationsActivity"
             android:exported="true"
             android:parentActivityName=".MainActivity"/>
         <activity
