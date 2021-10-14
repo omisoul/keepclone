@@ -2,17 +2,13 @@ package com.example.keepclone
 
 import android.app.Activity
 import android.app.DatePickerDialog
-import android.content.Context
-import android.content.Intent
 import android.os.Bundle
-import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
-import java.time.Month
 import java.util.*
 
 class DisplayAddTaskActivity: AppCompatActivity(),DatePickerDialog.OnDateSetListener  {
-    lateinit var date:String
+    var date:String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
