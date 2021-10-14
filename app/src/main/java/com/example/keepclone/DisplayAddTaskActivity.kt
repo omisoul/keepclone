@@ -12,17 +12,22 @@ import java.time.Month
 import java.util.*
 
 class DisplayAddTaskActivity: AppCompatActivity(),DatePickerDialog.OnDateSetListener  {
-    private lateinit var date:String
-    private val datePickerButton:Button = findViewById(R.id.due_date_picker)
-    private val notes:EditText = findViewById(R.id.notes)
-    private val title:EditText = findViewById(R.id.add_todo_text)
-    private val cancel:Button = findViewById(R.id.cancel_button)
-    private val confirm:Button = findViewById(R.id.add_task_button)
-    private val category:Spinner = findViewById(R.id.category_spinner)
+    lateinit var date:String
+
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.new_todo)
+        val datePickerButton:Button = findViewById(R.id.due_date_picker)
+        val notes:EditText = findViewById(R.id.notes)
+        val title:EditText = findViewById(R.id.add_todo_text)
+        val cancel:Button = findViewById(R.id.cancel_button)
+        val confirm:Button = findViewById(R.id.add_task_button)
+        val category:Spinner = findViewById(R.id.category_spinner)
+
+
+
+
         cancel.setOnClickListener {
             finish()
         }
@@ -43,13 +48,15 @@ class DisplayAddTaskActivity: AppCompatActivity(),DatePickerDialog.OnDateSetList
             val datePickerDialog =
                 DatePickerDialog(this, this, year, month,day)
             datePickerDialog.show()
+
+
         }
 
     }
 
     override fun onDateSet(p0: DatePicker?, year: Int, month: Int, dayofMonth: Int) {
         date = "Date $year/$month/$dayofMonth"
-        datePickerButton.text = date
+
 
     }
 
