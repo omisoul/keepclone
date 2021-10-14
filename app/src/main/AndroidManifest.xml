@@ -10,13 +10,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Keepclone">
         <activity
-<<<<<<< HEAD
-=======
-            android:name=".NotificationsActivity"
-            android:exported="true"
-            android:parentActivityName=".MainActivity"/>
-        <activity
->>>>>>> 3654c449297927837e2ea56862f4d0759821c673
             android:name=".MainActivity"
             android:exported="true"
             android:theme="@style/Theme.Keepclone.NoActionBar">
@@ -26,14 +19,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-<<<<<<< HEAD
-=======
-
-        <activity android:name=".DisplayAddTaskActivity"
-            android:parentActivityName=".MainActivity"
-            />
-
->>>>>>> 3654c449297927837e2ea56862f4d0759821c673
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />

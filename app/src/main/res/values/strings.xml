@@ -15,12 +15,7 @@
     <string name="bell_btn">Notification icon</string>
     <string name="add_todo_btn">Add todo</string>
     <string name="cancel">Cancel</string>
-<<<<<<< HEAD
     
-=======
-    <string name="add_task_button">Add Task</string>
-
->>>>>>> 3654c449297927837e2ea56862f4d0759821c673
     <!-- Labels -->
     <string name="category">Category</string>
     <string name="due_date">Due Date</string>
@@ -31,15 +26,4 @@
     <string name="add_todo_title">Enter todo title</string>
     <string name="add_notes">Add notes</string>
     <string name="add_subtasks">Add subtasks</string>
-
-    <!-- Spinner Fields -->
-    <string-array name="spinner_field_category">
-        <item>School</item>
-        <item>Personal</item>
-    </string-array>
-
-    <string-array name="spinner_field_duedate">
-        <item>School</item>
-        <item>Personal</item>
-    </string-array>
 </resources>
