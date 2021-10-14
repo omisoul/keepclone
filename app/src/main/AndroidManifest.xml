@@ -10,9 +10,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Keepclone">
         <activity
+            android:name=".TodoActivity"
+            android:exported="true" />
+        <activity
             android:name=".NotificationsActivity"
             android:exported="true"
-            android:parentActivityName=".MainActivity"/>
+            android:parentActivityName=".MainActivity" />
         <activity
             android:name=".MainActivity"
             android:exported="true">
@@ -22,10 +25,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".DisplayAddTaskActivity"
-            android:parentActivityName=".MainActivity"
-            />
+        <activity
+            android:name=".DisplayAddTaskActivity"
+            android:parentActivityName=".MainActivity" />
 
         <meta-data
             android:name="preloaded_fonts"

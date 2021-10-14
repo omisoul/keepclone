@@ -14,12 +14,14 @@
         <entry key="..\:/Users/xmort/Projects/Android/keepclone/app/src/main/res/layout/activity_main.xml" value="0.1984375" />
         <entry key="..\:/Users/xmort/Projects/Android/keepclone/app/src/main/res/layout/new_todo.xml" value="0.22" />
         <entry key="app/src/main/res/drawable/ic_fi_bell.xml" value="0.1359375" />
-        <entry key="app/src/main/res/layout/activity_main.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.375" />
         <entry key="app/src/main/res/layout/activity_notifications.xml" value="0.23802083333333332" />
+        <entry key="app/src/main/res/layout/activity_todo.xml" value="0.125" />
         <entry key="app/src/main/res/layout/add_todo.xml" value="0.23802083333333332" />
         <entry key="app/src/main/res/layout/nav_header.xml" value="0.1203125" />
         <entry key="app/src/main/res/layout/new_todo.xml" value="0.10916013597226065" />
-        <entry key="app/src/main/res/layout/notification_con.xml" value="0.17107334500625962" />
+        <entry key="app/src/main/res/layout/notification_con.xml" value="0.11946786786371613" />
+        <entry key="app/src/main/res/layout/todo_con.xml" value="0.22450826769256196" />
         <entry key="app/src/main/res/menu/navigation_menu.xml" value="0.23802083333333332" />
         <entry key="app/src/main/res/menu/notifications.xml" value="0.25" />
       </map>
