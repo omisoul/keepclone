@@ -4,7 +4,7 @@
 <!--    <style name="Theme.Keepclone" parent="Theme.AppCompat.Light.NoActionBar">-->
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/secondary_blue</item>
-        <item name="colorPrimaryVariant">@color/secondary_blue</item>
+        <item name="colorPrimaryVariant">@color/primary_blue</item>
         <item name="colorOnPrimary">@color/secondary_blue</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/green</item>
@@ -13,5 +13,11 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+    </style>
+
+
+    <style name="Theme.Keepclone.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
     </style>
 </resources>
