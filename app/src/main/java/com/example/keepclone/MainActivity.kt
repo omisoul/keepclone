@@ -7,7 +7,10 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import android.view.Menu
+import android.view.MenuItem
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,7 +42,28 @@ class MainActivity : AppCompatActivity() {
             startForResult.launch(Intent(this,DisplayAddTaskActivity::class.java))
         }
     }
+
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.notifications, menu)
+
+        val notificationBtn = menu?.findItem(R.id.notification_bell)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId){
+            R.id.notification_bell-> {
+                Intent(this, NotificationsActivity::class.java).also{
+                    startActivity(it)
+                }
+                return true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
 }
+
 
 
 
