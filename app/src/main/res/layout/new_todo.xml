@@ -12,9 +12,9 @@
 
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/add_todo_text"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="50dp"
+        android:layout_marginHorizontal="50dp"
         android:layout_marginTop="50dp"
         android:fontFamily="@font/poppins"
         android:text="@string/add_todo_title"
@@ -28,7 +28,7 @@
 
         android:id="@+id/options_container"
         android:layout_width="fill_parent"
-        android:layout_height="100dp"
+        android:layout_height="115dp"
         android:layout_marginHorizontal="50dp"
         android:layout_marginTop="20dp"
         android:background="@drawable/card_background"
@@ -41,8 +41,8 @@
 
         <TextView
             android:id="@+id/category_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="91dp"
+            android:layout_height="35dp"
             android:layout_marginTop="8dp"
             android:text="@string/category"
             android:textColor="@color/black"
@@ -50,74 +50,78 @@
 
         <TextView
             android:id="@+id/due_date_text"
-            android:layout_width="wrap_content"
+            android:layout_width="107dp"
             android:layout_height="wrap_content"
             android:layout_below="@id/category_text"
-            android:layout_marginTop="26dp"
+            android:layout_marginTop="22dp"
             android:text="@string/due_date"
             android:textColor="@color/black"
             android:textSize="16sp" />
 
         <Spinner
             android:id="@+id/category_spinner"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="150dp"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:layout_marginStart="65dp"
             android:layout_toEndOf="@id/category_text"
             android:entries="@array/spinner_field_category"
             android:spinnerMode="dropdown"
-             />
+            android:textSize="11sp" />
 
-        <Spinner
-            android:id="@+id/due_date_spinner"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
+        <Button
+            android:id="@+id/due_date_picker"
+            android:layout_width="wrap_content"
+            android:layout_height="44dp"
             android:layout_below="@id/category_spinner"
-            android:layout_marginStart="150dp"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="24dp"
+            android:layout_toEndOf="@id/due_date_text"
+            android:backgroundTint="@color/white"
+            android:gravity="start"
+            android:text="Select Date"
+            android:textColor="@color/black"
+            android:textSize="11sp" />
 
-
-            android:layout_marginTop="19dp"
-            android:layout_toEndOf="@id/due_date_text" />
     </RelativeLayout>
 
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/notes"
         android:layout_width="fill_parent"
-        android:layout_height="100dp"
+        android:layout_height="115dp"
         android:layout_marginHorizontal="50dp"
         android:layout_marginTop="12dp"
         android:background="@drawable/note_card_background"
         android:gravity="start"
         android:paddingHorizontal="8dp"
         android:paddingTop="5dp"
-        android:text="@string/add_notes"
+        android:hint="@string/add_notes"
         android:textColor="#E09b2b"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/options_container" />
 
     <ImageButton
-        android:id="@+id/imageButton4"
+        android:layout_marginTop="8dp"
+        android:id="@+id/add_subtask"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="50dp"
-        android:layout_marginTop="15dp"
         android:background="@color/off_white"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/notes"
+        app:layout_constraintTop_toBottomOf="@+id/subtask_recycler"
         app:srcCompat="@drawable/ic_fi_plus"
         app:tint="@color/black" />
 
     <TextView
+        android:layout_marginTop="8dp"
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginStart="16dp"
         android:text="@string/add_subtasks"
         android:textColor="@color/black"
         android:textSize="16sp"
-        app:layout_constraintStart_toEndOf="@+id/imageButton4"
-        app:layout_constraintTop_toBottomOf="@+id/notes" />
+        app:layout_constraintStart_toEndOf="@+id/add_subtask"
+        app:layout_constraintTop_toBottomOf="@+id/subtask_recycler" />
 
     <Button
         android:id="@+id/cancel_button"
@@ -143,5 +147,16 @@
         android:textColor="@color/white"
         app:layout_constraintBottom_toTopOf="@+id/cancel_button"
         app:layout_constraintEnd_toEndOf="parent" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_marginTop="8dp"
+        android:id="@+id/subtask_recycler"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_marginHorizontal="50dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/notes"
+        tools:listitem="@layout/subtask_card_view"
+        tools:itemCount="2" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
