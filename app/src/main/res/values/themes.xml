@@ -4,7 +4,7 @@
 <!--    <style name="Theme.Keepclone" parent="Theme.AppCompat.Light.NoActionBar">-->
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/secondary_blue</item>
-        <item name="colorPrimaryVariant">@color/primary_blue</item>
+        <item name="colorPrimaryVariant">@color/secondary_blue</item>
         <item name="colorOnPrimary">@color/secondary_blue</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/green</item>

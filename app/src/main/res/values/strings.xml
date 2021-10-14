@@ -4,6 +4,7 @@
     <string name="all_tasks_message">All your tasks that are due today will show up here</string>
     <string name="add_tasks">Tap + to add a new task</string>
     <string name="textview">TextView</string>
+    <string name="notifications">Notifications</string>
 
 
     <!-- Image info -->
@@ -15,7 +16,7 @@
     <string name="bell_btn">Notification icon</string>
     <string name="add_todo_btn">Add todo</string>
     <string name="cancel">Cancel</string>
-    
+
     <!-- Labels -->
     <string name="category">Category</string>
     <string name="due_date">Due Date</string>
