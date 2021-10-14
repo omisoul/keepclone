@@ -3,9 +3,8 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Downloads/Keep-Clone-test-master/Keep-Clone-test-master/app/src/main/res/layout/activity_main.xml" value="0.16666666666666666" />
-        <entry key="..\:/Downloads/Keep-Clone-test-master/Keep-Clone-test-master/app/src/main/res/layout/nav_header.xml" value="0.22" />
-        <entry key="..\:/Downloads/Keep-Clone-test-master/Keep-Clone-test-master/app/src/main/res/menu/drawer_menu.xml" value="0.17864583333333334" />
+        <entry key="..\:/Downloads/Keep-Clone-test-workingBar/Keep-Clone-test-workingBar/app/src/main/res/layout/activity_main.xml" value="0.10144927536231885" />
+        <entry key="..\:/Downloads/Keep-Clone-test-workingBar/Keep-Clone-test-workingBar/app/src/main/res/layout/nav_header.xml" value="0.10144927536231885" />
         <entry key="..\:/Personal Folder/Programming Projects/Android/Keep! Clone/keepclone-main/keepclone-main/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1" />
         <entry key="..\:/Personal Folder/Programming Projects/Android/Keep! Clone/keepclone-main/keepclone-main/app/src/main/res/drawable/addNew_filter.xml" value="0.19479166666666667" />
         <entry key="..\:/Personal Folder/Programming Projects/Android/Keep! Clone/keepclone-main/keepclone-main/app/src/main/res/drawable/ic_fi_bell.xml" value="0.1" />
@@ -16,6 +15,8 @@
         <entry key="..\:/Personal Folder/Programming Projects/Android/Keep! Clone/keepclone-main/keepclone-main/app/src/main/res/layout/activity_main.xml" value="0.22" />
         <entry key="..\:/Personal Folder/Programming Projects/Android/Keep! Clone/keepclone-main/keepclone-main/app/src/main/res/layout/nav_header.xml" value="0.3333333333333333" />
         <entry key="..\:/Personal Folder/Programming Projects/Android/Keep! Clone/keepclone-main/keepclone-main/app/src/main/res/menu/drawer_menu.xml" value="0.4466666666666667" />
+        <entry key="..\:/Users/xmort/Projects/Android/Keep-Clone-test/app/src/main/res/layout/activity_main.xml" value="0.14" />
+        <entry key="..\:/Users/xmort/Projects/Android/Keep-Clone-test/app/src/main/res/layout/nav_header.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.335" />
         <entry key="app/src/main/res/layout/add_todo.xml" value="0.23802083333333332" />
         <entry key="app/src/main/res/menu/navigation_menu.xml" value="0.23802083333333332" />

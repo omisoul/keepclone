@@ -20,7 +20,8 @@
     <string name="category">Category</string>
     <string name="due_date">Due Date</string>
     <string name="todo_name"><b>TODO List</b></string>
-
+    <string name="drawer_open">Open</string>
+    <string name="drawer_close">Closed</string>
     <!-- Text input fields -->
     <string name="add_todo_title">Enter todo title</string>
     <string name="add_notes">Add notes</string>
