@@ -5,12 +5,25 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import com.google.android.material.floatingactionbutton.FloatingActionButton
+
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        val add_task: FloatingActionButton = findViewById(R.id.floatingActionButton2)
+
+
+        add_task.setOnClickListener {
+            val intent = Intent(this, DisplayAddTaskActivity::class.java)
+            startActivity(intent)
+            val bundle: Bundle? = intent.extras
+        }
+
+
     }
+
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.notifications, menu)
@@ -31,3 +44,10 @@ class MainActivity : AppCompatActivity() {
         }
     }
 }
+
+
+
+
+
+
+
