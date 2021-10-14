@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".notifications">
+    android:background="#F9F9F9"
+    tools:context=".NotificationsActivity">
 
     <TextView
         android:id="@+id/textView"
@@ -22,8 +23,9 @@
         app:layout_constraintVertical_bias="0.045" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="409dp"
-        android:layout_height="665dp"
+        android:id="@+id/rvNotifications"
+        android:layout_width="412dp"
+        android:layout_height="649dp"
         android:layout_marginTop="2dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
