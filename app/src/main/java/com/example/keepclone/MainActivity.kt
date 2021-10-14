@@ -30,8 +30,6 @@ class MainActivity : AppCompatActivity() {
                 notes = result.data?.getStringExtra("notes").toString()
                 category = result.data?.getStringExtra("category").toString()
                 date = result.data?.getStringExtra("date").toString()
-
-
             }
             else{
                 val toast:Toast = Toast.makeText(this,"Canceled Note",Toast.LENGTH_SHORT)
