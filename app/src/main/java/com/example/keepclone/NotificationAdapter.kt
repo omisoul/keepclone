@@ -1,5 +1,6 @@
 package com.example.keepclone
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -33,6 +34,12 @@ class NotificationAdapter(
         holder.time.text = notifications[position].time
         holder.type.text = notifications[position].type
         holder.info.text = notifications[position].info
+
+        if (notifications[position].type == "Upcoming"){
+            holder.type.setTextColor(Color.parseColor("#64B57D"))
+        }else{
+            holder.type.setTextColor(Color.parseColor("#E04343"))
+        }
     }
 
     override fun getItemCount(): Int {
