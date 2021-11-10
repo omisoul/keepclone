@@ -43,7 +43,13 @@ class DisplayAddTaskActivity: AppCompatActivity(),DatePickerDialog.OnDateSetList
             intent.putExtra("notes",notes.text.toString())
             intent.putExtra("category",category.selectedItem.toString())
             intent.putExtra("date",date)
+            val final_subtask_array:ArrayList<String> = ArrayList()
+            for (i in subtasks){
+                final_subtask_array.add(i.task.text.toString())
+            }
+            intent.putExtra("subtasks",final_subtask_array)
             setResult(Activity.RESULT_OK,intent)
+
             finish()
         }
 
@@ -61,8 +67,8 @@ class DisplayAddTaskActivity: AppCompatActivity(),DatePickerDialog.OnDateSetList
 
 
         //On add subtask
-        addSubtask.setOnClickListener{
-            subtasks.add(SubtaskViewModel("Subtask"))
+        addSubtask.setOnClickListener(){
+            subtasks.add(SubtaskViewModel())
             adapter.notifyDataSetChanged()
         }
 
