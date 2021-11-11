@@ -1,12 +1,14 @@
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.ImageButton
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.keepclone.R
 import com.example.keepclone.SubtaskViewModel
 
-class SubtaskAdapter(private val mList: List<SubtaskViewModel>) : RecyclerView.Adapter<SubtaskAdapter.ViewHolder>() {
+class SubtaskAdapter(private val mList: MutableList<SubtaskViewModel>) : RecyclerView.Adapter<SubtaskAdapter.ViewHolder>() {
 
     // create new views
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -24,7 +26,12 @@ class SubtaskAdapter(private val mList: List<SubtaskViewModel>) : RecyclerView.A
 
 
 
-        holder.textView.text = ItemsViewModel.task
+        holder.textView.text = ItemsViewModel.text
+        holder.delete.setOnClickListener {
+            removeItem(position)
+            notifyDataSetChanged()
+
+        }
 
     }
 
@@ -34,5 +41,14 @@ class SubtaskAdapter(private val mList: List<SubtaskViewModel>) : RecyclerView.A
 
     class ViewHolder(ItemView: View) : RecyclerView.ViewHolder(ItemView) {
         val textView: TextView = itemView.findViewById(R.id.textView)
+        val delete:ImageButton = itemView.findViewById(R.id.subtask_delete)
+
     }
+
+
+    private fun removeItem(position: Int){
+        mList.removeAt(position)
+        notifyItemRemoved(position)
+    }
+
 }
