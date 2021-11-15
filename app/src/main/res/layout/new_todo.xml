@@ -152,7 +152,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/subtask_recycler"
         android:layout_width="314dp"
-        android:layout_height="50dp"
+        android:layout_height="150dp"
         android:layout_marginHorizontal="50dp"
         android:layout_marginStart="48dp"
         android:layout_marginTop="12dp"
