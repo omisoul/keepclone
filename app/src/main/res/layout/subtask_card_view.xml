@@ -9,21 +9,28 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="47dp"
         android:orientation="horizontal"
         android:padding="5dp">
 
         <TextView
             android:id="@+id/textView"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="35dp"
             android:layout_marginStart="10dp"
-            android:text=""
-            android:textSize="14sp"
             android:layout_weight="8"
             android:fontFamily="@font/poppins_semibold"
-            />
+            android:text=""
+            android:textSize="14sp" />
 
+        <ImageButton
+            android:id="@+id/subtask_delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:paddingTop="5dp"
+            android:paddingEnd="5dp"
+            app:srcCompat="@drawable/ic_baseline_delete" />
 
 
     </LinearLayout>

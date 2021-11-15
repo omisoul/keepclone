@@ -1,5 +1,8 @@
 package com.example.keepclone
 
 
-class SubtaskViewModel (val task:String) {
+
+class SubtaskViewModel (val text: String) {
+
+
 }
