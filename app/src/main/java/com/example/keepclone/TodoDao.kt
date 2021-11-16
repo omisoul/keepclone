@@ -26,6 +26,8 @@ interface TodoDao {
     @Query("SELECT * FROM Todo WHERE isComplete LIKE :status")
     fun getCompleteStatus(status : Boolean): Array<Todo>
 
+    @Query("SELECT * FROM Todo ORDER BY id DESC LIMIT 1")
+    fun getLastAdded():List<Todo>
 
     @Insert
     fun insertTodo(todoitem: Todo)

@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.keepclone.R
 import com.example.keepclone.SubtaskViewModel
 
-class SubtaskAdapter(private val mList: MutableList<SubtaskViewModel>) : RecyclerView.Adapter<SubtaskAdapter.ViewHolder>() {
+class SubtaskAdapter(private val mList: MutableList<String>) : RecyclerView.Adapter<SubtaskAdapter.ViewHolder>() {
 
     // create new views
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -26,7 +26,7 @@ class SubtaskAdapter(private val mList: MutableList<SubtaskViewModel>) : Recycle
 
 
 
-        holder.textView.text = ItemsViewModel.text
+        holder.textView.text = ItemsViewModel
         holder.delete.setOnClickListener {
             removeItem(position)
             notifyDataSetChanged()

@@ -13,6 +13,7 @@
         <activity
             android:windowSoftInputMode="adjustPan|adjustResize"
             android:name=".TodoActivity"
+            android:parentActivityName=".MainActivity"
             android:exported="true" />
         <activity
             android:name=".NotificationsActivity"
@@ -27,10 +28,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".DisplayAddTaskActivity"
-            android:parentActivityName=".MainActivity"
-           />
+
 
         <meta-data
             android:name="preloaded_fonts"

@@ -15,7 +15,9 @@ class NotificationsActivity : AppCompatActivity() {
         rvNotifications = findViewById(R.id.rvNotifications)
         getSupportActionBar()?.setDisplayHomeAsUpEnabled(true)
 
-        val notificationsList = mutableListOf(
+
+        // This commenting out old dummy data Look at notification data base
+     /*   val notificationsList = mutableListOf(
             Notification("Upcoming","Hey Jane Doe, you have two upcoming tasks. Tap here to view them.", "9:30PM"),
             Notification("Overdue","Hey Jane Doe, you have two task overdue. ", "9:20PM"),
             Notification("Upcoming","Hey Jane Doe, you have two upcoming tasks. Tap here to view them.", "9:30PM"),
@@ -31,7 +33,8 @@ class NotificationsActivity : AppCompatActivity() {
         rvNotifications.layoutManager = LinearLayoutManager(this)
 
 
+    */
+
+
     }
-
-
 }
