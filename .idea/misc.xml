@@ -12,12 +12,14 @@
         <entry key="..\:/Users/xmort/Projects/Android/keepclone/app/src/main/res/drawable/ic_launcher_background.xml" value="0.21458333333333332" />
         <entry key="..\:/Users/xmort/Projects/Android/keepclone/app/src/main/res/drawable/ic_status.xml" value="0.21458333333333332" />
         <entry key="..\:/Users/xmort/Projects/Android/keepclone/app/src/main/res/drawable/note_card_background.xml" value="0.21458333333333332" />
+        <entry key="..\:/Users/xmort/Projects/Android/keepclone/app/src/main/res/drawable/personal_filter.xml" value="0.2109375" />
         <entry key="..\:/Users/xmort/Projects/Android/keepclone/app/src/main/res/drawable/school_filter.xml" value="0.21458333333333332" />
         <entry key="..\:/Users/xmort/Projects/Android/keepclone/app/src/main/res/font/poppins_semibold.xml" value="0.1" />
         <entry key="..\:/Users/xmort/Projects/Android/keepclone/app/src/main/res/layout/activity_main.xml" value="0.1984375" />
         <entry key="..\:/Users/xmort/Projects/Android/keepclone/app/src/main/res/layout/activity_notifications.xml" value="0.223731884057971" />
         <entry key="..\:/Users/xmort/Projects/Android/keepclone/app/src/main/res/layout/activity_todo.xml" value="0.223731884057971" />
         <entry key="..\:/Users/xmort/Projects/Android/keepclone/app/src/main/res/layout/add_subtask.xml" value="0.223731884057971" />
+        <entry key="..\:/Users/xmort/Projects/Android/keepclone/app/src/main/res/layout/mainscreen_recycler_model.xml" value="0.16875" />
         <entry key="..\:/Users/xmort/Projects/Android/keepclone/app/src/main/res/layout/nav_header.xml" value="0.223731884057971" />
         <entry key="..\:/Users/xmort/Projects/Android/keepclone/app/src/main/res/layout/new_todo.xml" value="0.22" />
         <entry key="..\:/Users/xmort/Projects/Android/keepclone/app/src/main/res/layout/notification_con.xml" value="0.223731884057971" />
@@ -45,7 +47,7 @@
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">
