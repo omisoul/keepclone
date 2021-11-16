@@ -45,7 +45,8 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
                 var category = result.data?.getStringExtra("category").toString()
                 var date = result.data?.getStringExtra("date").toString()
                 if (title.isNotBlank()){
-                var todo = Todo(title = title,category = category,dueDate = date,notes= notes,isComplete = false)
+//                    @Brendon, work on this, "No value passed for parameter 'id'"
+//                var todo = Todo(title = title,category = category,dueDate = date,notes= notes,isComplete = false)
                 todoList.add(todo)
                     if (todoList.size > 0) {
                         todoRecyclerView.visibility = View.VISIBLE

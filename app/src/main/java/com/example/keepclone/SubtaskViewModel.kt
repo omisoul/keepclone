@@ -1,8 +1,10 @@
 package com.example.keepclone
 
+import androidx.room.Entity
 
 
-class SubtaskViewModel (val text: String) {
+@Entity
+data class SubtaskViewModel (val text: String) {
 
 
 }
