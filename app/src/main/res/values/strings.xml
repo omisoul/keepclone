@@ -32,10 +32,9 @@
     <string-array name="spinner_field_category">
         <item>School</item>
         <item>Personal</item>
+        <item>Work</item>
     </string-array>
 
-    <string-array name="spinner_field_duedate">
-        <item>School</item>
-        <item>Personal</item>
-    </string-array>
+
+
 </resources>

@@ -1,12 +1,9 @@
 package com.example.keepclone
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.CheckBox
-import android.widget.ImageView
-import android.widget.TextView
+import android.widget.*
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.DrawableCompat
 import androidx.recyclerview.widget.RecyclerView
@@ -32,6 +29,7 @@ class TodoAdapter(var todos: List<Todo>
         holder: TodoAdapter.TodoViewHolder,
         position: Int
     ) {
+        print(todos[position].title)
         holder.info.text = todos[position].title
         holder.isComplete.isChecked = todos[position].isComplete
         if(todos[position].category == "Work"){
@@ -41,7 +39,9 @@ class TodoAdapter(var todos: List<Todo>
         }
     }
 
+
     override fun getItemCount(): Int {
         return todos.size
     }
 }
+
