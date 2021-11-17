@@ -19,13 +19,16 @@ interface TodoDao {
     fun getTodobyTitle(title: String): Array<Todo>
 
     @Query("SELECT * FROM Todo WHERE dueDate LIKE :date")
-    fun getTodobyDueDate(date : String): Array<Todo>
+    fun getTodobyDueDate(date : String): List<Todo>
 
     @Query("SELECT * FROM Todo WHERE category LIKE :category")
-    fun getTodobyCategory(category : String): Array<Todo>
+    fun getTodobyCategory(category : String): List<Todo>
 
     @Query("SELECT * FROM Todo WHERE isComplete LIKE :status")
-    fun getCompleteStatus(status : Boolean): Array<Todo>
+    fun getCompleteStatus(status : Boolean): List<Todo>
+
+    @Query("Update Todo SET isComplete = :status Where id Like :title")
+    fun setCompleteStatus(title : String,status:Boolean)
 
     @Query("SELECT * FROM Todo ORDER BY id DESC LIMIT 1")
     fun getLastAdded():List<Todo>

@@ -24,9 +24,14 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
+import java.util.*
+import kotlin.collections.ArrayList
 import kotlin.concurrent.thread
 
-
+lateinit var sort:String
+lateinit var db:RoomDB
+var todoList:List<Todo> = emptyList()
+lateinit var todoAdapter: TodoAdapter
 class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelectedListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,12 +43,12 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
         val menu_toggle: ImageButton = findViewById(R.id.menu_toggle)
 
         //Starting database in Main Activity
-        val db = Room.databaseBuilder(this,RoomDB::class.java, "todo_database").build()
+        db = Room.databaseBuilder(this,RoomDB::class.java, "todo_database").build()
         //Starting todoDao
         val todoDao = db.todoDao()
-        var todoList:List<Todo> = emptyList()
+
         val subtaskDao = db.subtaskDao()
-        val todoAdapter = TodoAdapter(todoList)
+        todoAdapter = TodoAdapter(todoList,db)
 
 
         todoRecyclerView.layoutManager = LinearLayoutManager(this)
@@ -52,7 +57,6 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
         GlobalScope.launch{
             val a_todo = async (Dispatchers.IO) {loadTodos(db)}
             todoList = a_todo.await()
-            println("LIST SIZE" + todoList.size)
             todoAdapter.todos = todoList
             todoRecyclerView.adapter = todoAdapter
             todoAdapter.notifyDataSetChanged()
@@ -116,6 +120,7 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
         }
 
         nav_view.setNavigationItemSelectedListener(this)
+
     }
 
 
@@ -139,10 +144,47 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        Toast.makeText(applicationContext,"${item.title.toString()} was selected",Toast.LENGTH_SHORT).show()
+        val sort = item.title
+        if (sort == "Work" || sort == "Personal" || sort == "School"){
+            sortByCategory(sort as String,db, todoAdapter)
+        }
+        else if (sort == "Today"){
+            sortbyDate(sort as String,db, todoAdapter)
+        }
+        else if (sort == "All"){
+            GlobalScope.launch {
+                val a_todo = async (Dispatchers.IO) {loadTodos(db)}
+                todoList = a_todo.await()
+                todoAdapter.todos = todoList
+                todoAdapter.notifyDataSetChanged()
+            }
+
+        }
+/*        else if (sort == "Complete"){
+            sortByCompleated(db, todoAdapter)
+        }*/
         return true
     }
 
+    private fun sortByCompleated(db: RoomDB,adapter: TodoAdapter) {
+        GlobalScope.launch {
+
+            val todos = async (Dispatchers.IO){ getTodoByStatus(db) }
+
+            adapter.todos = todos.await()
+            adapter.notifyDataSetChanged()
+        }
+    }
+
+    private fun sortbyDate(date: String, db: RoomDB, adapter: TodoAdapter) {
+        GlobalScope.launch {
+
+            val todos = async (Dispatchers.IO){ getTodoByDate(db) }
+
+            adapter.todos = todos.await()
+            adapter.notifyDataSetChanged()
+        }
+    }
 
 
     private fun loadTodos(db: RoomDB):List<Todo>{
@@ -177,6 +219,36 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
             text3.visibility = View.GONE
 
         }
+    }
+    fun sortByCategory(category: String,db:RoomDB,adapter: TodoAdapter){
+        GlobalScope.launch {
+
+            val todos = async (Dispatchers.IO){ getTodoByCategory(category,db) }
+
+            adapter.todos = todos.await()
+            adapter.notifyDataSetChanged()
+        }
+    }
+
+    fun getTodoByCategory(category: String,db: RoomDB):List<Todo>{
+        val _todos = db.todoDao().getTodobyCategory(category)
+        return _todos
+    }
+
+    fun getTodoByDate(db: RoomDB):List<Todo>{
+        var date:String = ""
+        val calendar: Calendar = Calendar.getInstance()
+        val day = calendar.get(Calendar.DAY_OF_MONTH)
+        val month = calendar.get(Calendar.MONTH)
+        val year = calendar.get(Calendar.YEAR)
+        date = "Selected $year/${month+1}/$day"
+        val _todos = db.todoDao().getTodobyDueDate(date)
+        println(_todos)
+        return _todos
+    }
+
+    fun getTodoByStatus(db: RoomDB):List<Todo>{
+        return db.todoDao().getCompleteStatus(true)
     }
 }
 

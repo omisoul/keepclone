@@ -21,6 +21,10 @@
             android:icon="@drawable/personal_filter"
             android:title="Personal" />
 
+        <item android:id="@+id/work_filter"
+            android:icon="@drawable/school_filter"
+            android:title="Work" />
+
         <item android:id="@+id/complete_filter"
             android:icon="@drawable/complete_filter"
             android:title="Complete" />
