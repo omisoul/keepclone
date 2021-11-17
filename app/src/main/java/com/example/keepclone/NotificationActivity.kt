@@ -1,7 +1,12 @@
 package com.example.keepclone
 
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
@@ -30,8 +35,44 @@ class NotificationsActivity : AppCompatActivity() {
         rvNotifications.adapter = adapter
         rvNotifications.layoutManager = LinearLayoutManager(this)
 
+        //
 
+        notificate()
+    }
+    val channel_Id = "channelID"
+    val channel_Name = "channelName"
+    val notification_Id = 0
+
+
+    fun notificate(){
+        createNotificationChannel()
+
+        val notification = NotificationCompat.Builder (this, channel_Id)
+            .setContentTitle("Awesome Notification")
+            .setContentText("This is the context of the text")
+            .setSmallIcon(R.drawable.ic_fi_bell)
+            .setPriority(NotificationCompat.PRIORITY_HIGH)
+            .build()
+
+        val notificationManager = NotificationManagerCompat.from(this)
+
+
+        notificationManager.notify(notification_Id,notification)
     }
 
+    
+
+    fun createNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val channel = NotificationChannel(channel_Id, channel_Name,
+                NotificationManager.IMPORTANCE_DEFAULT
+            ).apply {
+                lightColor = android.graphics.Color.GREEN
+                enableLights(true)
+            }
+            val manager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
+            manager.createNotificationChannel(channel)
+        }
+    }
 
 }

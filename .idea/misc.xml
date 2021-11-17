@@ -3,6 +3,8 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Francine/keepclone/app/src/main/res/drawable/ic_fi_bell.xml" value="0.17314814814814813" />
+        <entry key="..\:/Users/Francine/keepclone/app/src/main/res/layout/activity_main.xml" value="0.19895833333333332" />
         <entry key="..\:/Users/xmort/Projects/Android/keepclone/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.21458333333333332" />
         <entry key="..\:/Users/xmort/Projects/Android/keepclone/app/src/main/res/drawable/all_filter.xml" value="0.21458333333333332" />
         <entry key="..\:/Users/xmort/Projects/Android/keepclone/app/src/main/res/drawable/card_background.xml" value="0.21458333333333332" />
@@ -47,7 +49,7 @@
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">
