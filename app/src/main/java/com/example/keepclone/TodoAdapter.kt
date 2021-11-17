@@ -9,7 +9,7 @@ import androidx.core.graphics.drawable.DrawableCompat
 import androidx.recyclerview.widget.RecyclerView
 
 class TodoAdapter(var todos: List<Todo>
-    ): RecyclerView.Adapter<TodoAdapter.TodoViewHolder>() {
+): RecyclerView.Adapter<TodoAdapter.TodoViewHolder>() {
 
     inner class TodoViewHolder(view: View): RecyclerView.ViewHolder(view){
         val info: TextView = view.findViewById(R.id.todo_info)
@@ -29,7 +29,6 @@ class TodoAdapter(var todos: List<Todo>
         holder: TodoAdapter.TodoViewHolder,
         position: Int
     ) {
-        print(todos[position].title)
         holder.info.text = todos[position].title
         holder.isComplete.isChecked = todos[position].isComplete
         if(todos[position].category == "Work"){
@@ -44,4 +43,3 @@ class TodoAdapter(var todos: List<Todo>
         return todos.size
     }
 }
-

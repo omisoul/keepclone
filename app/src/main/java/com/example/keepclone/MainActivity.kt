@@ -20,7 +20,11 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
-
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
+import kotlin.concurrent.thread
 
 
 class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelectedListener {
@@ -37,13 +41,27 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
         val db = Room.databaseBuilder(this,RoomDB::class.java, "todo_database").build()
         //Starting todoDao
         val todoDao = db.todoDao()
+        var todoList:List<Todo> = emptyList()
         val subtaskDao = db.subtaskDao()
-
-
-        val todoList:ArrayList<Todo> = ArrayList()
-        todoRecyclerView.layoutManager = LinearLayoutManager(this)
         val todoAdapter = TodoAdapter(todoList)
-        todoRecyclerView.adapter = todoAdapter
+
+
+        todoRecyclerView.layoutManager = LinearLayoutManager(this)
+
+
+        GlobalScope.launch{
+            val a_todo = async (Dispatchers.IO) {loadTodos(db)}
+            todoList = a_todo.await()
+            println("LIST SIZE" + todoList.size)
+            todoAdapter.todos = todoList
+            todoRecyclerView.adapter = todoAdapter
+            todoAdapter.notifyDataSetChanged()
+            removeBackground(todoList,todoRecyclerView)
+
+        }
+
+
+
 
 
 
@@ -58,42 +76,35 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
                 var subtasks = result.data?.getStringArrayListExtra("subtasks")
                 if (title.isNotBlank()){
                     var todo = Todo(title = title,category = category,dueDate = date,notes= notes,isComplete = false,0)
-                    Thread {
-                        todoDao.insertTodo(todo)
-                        val lastAdded = todoDao.getLastAdded()
+
+                    //Coroutine
+                    GlobalScope.launch{
+                        addNewItem(db,todo)
                         if (subtasks != null) {
-                            for (subtask in subtasks){
-                                subtaskDao.insertSubTask(SubtaskViewModel(subtask,lastAdded[0].id,0))
-                            }
-
+                                addNewSubtasks(db,subtasks)
                         }
-                    }.start()
-                    todoList.add(todo)
-                    if (todoList.size > 0) {
-                        todoRecyclerView.visibility = View.VISIBLE
-                        val backgroundImage: ImageView = findViewById(R.id.imageView2)
-                        val text1: TextView = findViewById(R.id.textView2)
-                        val text2: TextView = findViewById(R.id.textView3)
-                        val text3: TextView = findViewById(R.id.textView4)
-                        backgroundImage.visibility = View.GONE
-                        text1.visibility = View.GONE
-                        text2.visibility = View.GONE
-                        text3.visibility = View.GONE
-                        todoAdapter.notifyDataSetChanged()
-                    } else{
-                        todoAdapter.notifyDataSetChanged()
-                    }
+                        val newTodoList = async(Dispatchers.IO) { todoDao.loadAllTodo()}
+                        todoAdapter.todos = newTodoList.await()
 
-                }else{
-                val toast:Toast = Toast.makeText(this,"Title is Empty. Note Canceled",Toast.LENGTH_SHORT)
+
+                    }
+                    todoAdapter.notifyDataSetChanged()
+                    removeBackground(todoAdapter.todos,todoRecyclerView)
+                }else
+                {
+                    val toast:Toast = Toast.makeText(this,"Title is Empty. Note Canceled",Toast.LENGTH_SHORT)
                     toast.show()
                 }
-
             }
+
             else{
                 val toast:Toast = Toast.makeText(this,"Canceled Note",Toast.LENGTH_SHORT)
                 toast.show()
             }
+
+
+
+
         }
         //Set FloatingActionButton Listener
         add_task.setOnClickListener{
@@ -130,6 +141,42 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         Toast.makeText(applicationContext,"${item.title.toString()} was selected",Toast.LENGTH_SHORT).show()
         return true
+    }
+
+
+
+    private fun loadTodos(db: RoomDB):List<Todo>{
+
+
+        return db.todoDao().loadAllTodo()
+    }
+
+    private fun addNewItem(db:RoomDB,todo:Todo){
+        db.todoDao().insertTodo(todo)
+
+
+    }
+
+    private fun addNewSubtasks(db: RoomDB, subtasks: ArrayList<String>){
+        val lastAdded = db.todoDao().getLastAdded()
+        for (subtask in subtasks){
+            db.subtaskDao().insertSubTask(SubtaskViewModel(subtask,lastAdded[0].id,0))
+        }
+    }
+
+    private fun removeBackground(todoList:List<Todo>,todoRecyclerView:RecyclerView){
+        if (todoList.isNotEmpty()) {
+            todoRecyclerView.visibility = View.VISIBLE
+            val backgroundImage: ImageView = findViewById(R.id.imageView2)
+            val text1: TextView = findViewById(R.id.textView2)
+            val text2: TextView = findViewById(R.id.textView3)
+            val text3: TextView = findViewById(R.id.textView4)
+            backgroundImage.visibility = View.GONE
+            text1.visibility = View.GONE
+            text2.visibility = View.GONE
+            text3.visibility = View.GONE
+
+        }
     }
 }
 

@@ -1,5 +1,6 @@
 package com.example.keepclone
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
@@ -8,7 +9,7 @@ import androidx.room.Query
 @Dao
 interface TodoDao {
     @Query("SELECT * FROM Todo")
-    fun loadAllTodo(): Array<Todo>
+    fun loadAllTodo(): List<Todo>
 
             //Check if LIKE is used properly here, Consider EQUALS if you can work it
     @Query("SELECT * FROM Todo WHERE id LIKE :id")
