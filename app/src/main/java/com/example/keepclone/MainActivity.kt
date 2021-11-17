@@ -1,6 +1,8 @@
 package com.example.keepclone
 
 import android.app.Activity
+import android.app.NotificationManager
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -14,6 +16,7 @@ import android.view.View
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.app.NotificationManagerCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -44,6 +47,7 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
         todoRecyclerView.layoutManager = LinearLayoutManager(this)
         val todoAdapter = TodoAdapter(todoList)
         todoRecyclerView.adapter = todoAdapter
+        val mActivity = Notificationsss()
 
 
         val signResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
@@ -102,7 +106,10 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
         }
         //Set FloatingActionButton Listener
         add_task.setOnClickListener{
+            //mActivity.notificate()
+            //startForResult.launch(Intent(this,Notificationsss::class.java))
             startForResult.launch(Intent(this,TodoActivity::class.java))
+
         }
 
         menu_toggle.setOnClickListener{
