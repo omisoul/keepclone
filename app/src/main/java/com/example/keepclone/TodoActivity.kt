@@ -1,9 +1,8 @@
 package com.example.keepclone
 
 import SubtaskAdapter
-import android.app.Activity
-import android.app.DatePickerDialog
-import android.app.Dialog
+import android.app.*
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.widget.*
@@ -16,14 +15,8 @@ import android.widget.TextView
 import android.view.Window
 
 import android.widget.EditText
-
-
-
-
-
-
-
-
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
 
 
 class TodoActivity: AppCompatActivity(),DatePickerDialog.OnDateSetListener  {
@@ -33,6 +26,7 @@ class TodoActivity: AppCompatActivity(),DatePickerDialog.OnDateSetListener  {
     private val month = calendar.get(Calendar.MONTH)
     private val year = calendar.get(Calendar.YEAR)
     lateinit var datePickerButton: Button
+
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
@@ -54,6 +48,7 @@ class TodoActivity: AppCompatActivity(),DatePickerDialog.OnDateSetListener  {
 
         date = "Selected $year/${month+1}/$day"
         datePickerButton.text = date
+        //val mActivity = NotificationsActivity()
 
         //On cancel
         cancel.setOnClickListener {
@@ -72,7 +67,7 @@ class TodoActivity: AppCompatActivity(),DatePickerDialog.OnDateSetListener  {
             }
             intent.putExtra("subtasks",final_subtask_array)
             setResult(Activity.RESULT_OK,intent)
-
+            notificate(title.text.toString())
             finish()
         }
 
@@ -128,6 +123,42 @@ class TodoActivity: AppCompatActivity(),DatePickerDialog.OnDateSetListener  {
 
 
 
+    }
+
+    val channel_Id = "channelID"
+    val channel_Name = "channelName"
+    val notification_Id = 0
+
+
+    fun notificate( title:String ){
+        createNotificationChannel()
+
+        val notification = NotificationCompat.Builder (this, channel_Id)
+            .setContentTitle("Good day!")
+            .setContentText(title + "is due today!")
+            .setSmallIcon(R.drawable.ic_fi_bell)
+            .setPriority(NotificationCompat.PRIORITY_HIGH)
+            .build()
+
+        val notificationManager = NotificationManagerCompat.from(this)
+
+
+        notificationManager.notify(notification_Id,notification)
+    }
+
+
+
+    fun createNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val channel = NotificationChannel(channel_Id, channel_Name,
+                NotificationManager.IMPORTANCE_DEFAULT
+            ).apply {
+                lightColor = android.graphics.Color.GREEN
+                enableLights(true)
+            }
+            val manager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
+            manager.createNotificationChannel(channel)
+        }
     }
 
 

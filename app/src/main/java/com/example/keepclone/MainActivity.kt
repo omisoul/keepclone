@@ -40,7 +40,7 @@ open class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSel
         todoRecyclerView.layoutManager = LinearLayoutManager(this)
         val todoAdapter = TodoAdapter(todoList)
         todoRecyclerView.adapter = todoAdapter
-        val mActivity = Notificationsss()
+
 
         val startForResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult())
         { result: ActivityResult ->
@@ -120,6 +120,8 @@ open class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSel
         Toast.makeText(applicationContext,"${item.title.toString()} was selected",Toast.LENGTH_SHORT).show()
         return true
     }
+
+
 }
 
 

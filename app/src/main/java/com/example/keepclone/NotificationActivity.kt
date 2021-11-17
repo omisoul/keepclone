@@ -37,42 +37,8 @@ class NotificationsActivity : AppCompatActivity() {
 
         //
 
-        notificate()
-    }
-    val channel_Id = "channelID"
-    val channel_Name = "channelName"
-    val notification_Id = 0
 
-
-    fun notificate(){
-        createNotificationChannel()
-
-        val notification = NotificationCompat.Builder (this, channel_Id)
-            .setContentTitle("Awesome Notification")
-            .setContentText("This is the context of the text")
-            .setSmallIcon(R.drawable.ic_fi_bell)
-            .setPriority(NotificationCompat.PRIORITY_HIGH)
-            .build()
-
-        val notificationManager = NotificationManagerCompat.from(this)
-
-
-        notificationManager.notify(notification_Id,notification)
     }
 
-    
-
-    fun createNotificationChannel() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val channel = NotificationChannel(channel_Id, channel_Name,
-                NotificationManager.IMPORTANCE_DEFAULT
-            ).apply {
-                lightColor = android.graphics.Color.GREEN
-                enableLights(true)
-            }
-            val manager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
-            manager.createNotificationChannel(channel)
-        }
-    }
 
 }
