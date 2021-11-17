@@ -36,6 +36,7 @@
         <entry key="app/src/main/res/layout/activity_google_sign_in.xml" value="0.23802083333333332" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.32083333333333336" />
         <entry key="app/src/main/res/layout/activity_notifications.xml" value="0.23802083333333332" />
+        <entry key="app/src/main/res/layout/activity_profile.xml" value="0.10625" />
         <entry key="app/src/main/res/layout/activity_todo.xml" value="0.125" />
         <entry key="app/src/main/res/layout/add_todo.xml" value="0.23802083333333332" />
         <entry key="app/src/main/res/layout/nav_header.xml" value="0.1203125" />
