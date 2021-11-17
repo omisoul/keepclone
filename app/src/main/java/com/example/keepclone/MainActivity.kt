@@ -2,7 +2,6 @@ package com.example.keepclone
 
 import android.app.Activity
 import android.content.Intent
-import android.opengl.Visibility
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Gravity
@@ -18,8 +17,10 @@ import android.widget.TextView
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.room.Room
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
+
 
 
 class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelectedListener {
@@ -31,10 +32,20 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
         val nav_view: NavigationView = findViewById(R.id.nav_view)
         val menu_toggle: ImageButton = findViewById(R.id.menu_toggle)
+
+        //Starting database in Main Activity
+        val db = Room.databaseBuilder(this,RoomDB::class.java, "todo_database").build()
+        //Starting todoDao
+        val todoDao = db.todoDao()
+        val subtaskDao = db.subtaskDao()
+
+
         val todoList:ArrayList<Todo> = ArrayList()
         todoRecyclerView.layoutManager = LinearLayoutManager(this)
         val todoAdapter = TodoAdapter(todoList)
         todoRecyclerView.adapter = todoAdapter
+
+
 
         val startForResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult())
         { result: ActivityResult ->
@@ -44,9 +55,20 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
                 var notes = result.data?.getStringExtra("notes").toString()
                 var category = result.data?.getStringExtra("category").toString()
                 var date = result.data?.getStringExtra("date").toString()
+                var subtasks = result.data?.getStringArrayListExtra("subtasks")
                 if (title.isNotBlank()){
-                var todo = Todo(title = title,category = category,dueDate = date,notes= notes,isComplete = false)
-                todoList.add(todo)
+                    var todo = Todo(title = title,category = category,dueDate = date,notes= notes,isComplete = false,0)
+                    Thread {
+                        todoDao.insertTodo(todo)
+                        val lastAdded = todoDao.getLastAdded()
+                        if (subtasks != null) {
+                            for (subtask in subtasks){
+                                subtaskDao.insertSubTask(SubtaskViewModel(subtask,lastAdded[0].id,0))
+                            }
+
+                        }
+                    }.start()
+                    todoList.add(todo)
                     if (todoList.size > 0) {
                         todoRecyclerView.visibility = View.VISIBLE
                         val backgroundImage: ImageView = findViewById(R.id.imageView2)

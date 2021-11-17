@@ -38,7 +38,7 @@ class TodoActivity: AppCompatActivity(),DatePickerDialog.OnDateSetListener  {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.new_todo)
         var subtaskText: String
-        val subtasks:ArrayList<SubtaskViewModel> = ArrayList()
+        val subtasks:ArrayList<String> = ArrayList()
         val button:Button = findViewById(R.id.due_date_picker)
         val notes:EditText = findViewById(R.id.notes)
         val title:EditText = findViewById(R.id.add_todo_text)
@@ -68,7 +68,7 @@ class TodoActivity: AppCompatActivity(),DatePickerDialog.OnDateSetListener  {
             intent.putExtra("date",date)
             val final_subtask_array:ArrayList<String> = ArrayList()
             for (i in subtasks){
-                final_subtask_array.add(i.text)
+                final_subtask_array.add(i)
             }
             intent.putExtra("subtasks",final_subtask_array)
             setResult(Activity.RESULT_OK,intent)
@@ -102,7 +102,7 @@ class TodoActivity: AppCompatActivity(),DatePickerDialog.OnDateSetListener  {
                 }
                 Log.d("TAG", body.text.toString())
                 Log.d("TAG", body.text.toString().isBlank().toString())
-                subtasks.add(SubtaskViewModel(body.text.toString()))
+                subtasks.add(body.text.toString())
                 adapter.notifyDataSetChanged()
                 dialog.dismiss()
             }
