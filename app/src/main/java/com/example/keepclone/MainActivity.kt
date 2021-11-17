@@ -46,7 +46,12 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
         todoRecyclerView.adapter = todoAdapter
 
 
-
+        val signResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
+            result: ActivityResult ->
+//            if{
+//                //
+//            }
+        }
         val startForResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult())
         { result: ActivityResult ->
             if (result.resultCode == Activity.RESULT_OK) {
@@ -105,6 +110,8 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
         }
 
         nav_view.setNavigationItemSelectedListener(this)
+
+
     }
 
 
@@ -129,7 +136,16 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         Toast.makeText(applicationContext,"${item.title.toString()} was selected",Toast.LENGTH_SHORT).show()
-        return true
+        return when (item.itemId) {
+            R.id.sign_in -> {
+                Intent(this, GoogleSignInActivity::class.java).also {
+                    startActivity(it)
+                }
+                return true
+            }
+            else -> true
+        }
+
     }
 }
 

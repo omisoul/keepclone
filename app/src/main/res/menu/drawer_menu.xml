@@ -33,6 +33,10 @@
             android:icon="@drawable/create_filter"
             android:title="Create New List" />
 
+        <item android:id="@+id/sign_in"
+            android:icon="@drawable/create_filter"
+            android:title="Sign in with Google" />
+
 
     </group>
 
