@@ -35,6 +35,5 @@
         <item>Work</item>
     </string-array>
 
-
-
+    <string name="server_client_id">"1046673848385-esj4v8srtba8o2nmh7m3uvrc303qlreo.apps.googleusercontent.com"</string>
 </resources>

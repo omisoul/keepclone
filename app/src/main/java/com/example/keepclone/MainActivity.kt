@@ -1,6 +1,8 @@
 package com.example.keepclone
 
 import android.app.Activity
+import android.app.NotificationManager
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -14,6 +16,7 @@ import android.view.View
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.app.NotificationManagerCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -54,6 +57,7 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
         todoRecyclerView.layoutManager = LinearLayoutManager(this)
 
 
+
         GlobalScope.launch{
             val a_todo = async (Dispatchers.IO) {loadTodos(db)}
             todoList = a_todo.await()
@@ -67,8 +71,18 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
 
 
 
+        val todoAdapter = TodoAdapter(todoList,db)
+        todoRecyclerView.adapter = todoAdapter
+        //val mActivity = Notificationsss()
 
 
+
+        val signResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
+            result: ActivityResult ->
+//            if{
+//                //
+//            }
+        }
         val startForResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult())
         { result: ActivityResult ->
             if (result.resultCode == Activity.RESULT_OK) {
@@ -112,7 +126,10 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
         }
         //Set FloatingActionButton Listener
         add_task.setOnClickListener{
+            //mActivity.notificate()
+            //startForResult.launch(Intent(this,Notificationsss::class.java))
             startForResult.launch(Intent(this,TodoActivity::class.java))
+
         }
 
         menu_toggle.setOnClickListener{
@@ -120,6 +137,7 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
         }
 
         nav_view.setNavigationItemSelectedListener(this)
+
 
     }
 
@@ -144,6 +162,7 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
+
         val sort = item.title
         if (sort == "Work" || sort == "Personal" || sort == "School"){
             sortByCategory(sort as String,db, todoAdapter)
@@ -168,6 +187,19 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
             sortByOverdue(db, todoAdapter)
         }
         return true
+
+        Toast.makeText(applicationContext,"${item.title.toString()} was selected",Toast.LENGTH_SHORT).show()
+        return when (item.itemId) {
+            R.id.sign_in -> {
+                Intent(this, GoogleSignInActivity::class.java).also {
+                    startActivity(it)
+                }
+                return true
+            }
+            else -> true
+        }
+
+
     }
 
     private fun sortByOverdue(db: RoomDB, adapter: TodoAdapter) {
