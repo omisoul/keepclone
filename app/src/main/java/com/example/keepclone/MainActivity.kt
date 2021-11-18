@@ -160,10 +160,24 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
             }
 
         }
-/*        else if (sort == "Complete"){
+        else if (sort == "Complete"){
             sortByCompleated(db, todoAdapter)
-        }*/
+        }
+
+        else if (sort == "Overdue"){
+            sortByOverdue(db, todoAdapter)
+        }
         return true
+    }
+
+    private fun sortByOverdue(db: RoomDB, adapter: TodoAdapter) {
+        GlobalScope.launch {
+
+            val todos = async (Dispatchers.IO){ getTodoByOverdue(db) }
+
+            adapter.todos = todos.await()
+            adapter.notifyDataSetChanged()
+        }
     }
 
     private fun sortByCompleated(db: RoomDB,adapter: TodoAdapter) {
@@ -249,6 +263,18 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
 
     fun getTodoByStatus(db: RoomDB):List<Todo>{
         return db.todoDao().getCompleteStatus(true)
+    }
+
+    fun getTodoByOverdue(db: RoomDB):List<Todo>{
+        var date:String = ""
+        val calendar: Calendar = Calendar.getInstance()
+        val day = calendar.get(Calendar.DAY_OF_MONTH)
+        val month = calendar.get(Calendar.MONTH)
+        val year = calendar.get(Calendar.YEAR)
+        date = "Selected $year/${month+1}/$day"
+        val _todos = db.todoDao().getTodoByOverdue(date)
+        println(_todos)
+        return _todos
     }
 }
 
