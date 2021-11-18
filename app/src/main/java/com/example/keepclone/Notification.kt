@@ -19,7 +19,7 @@ data class Notification(
     val info: String,
     val time: String)
 
-class Notificationsss : MainActivity(){
+class Notifications{
 
 
 

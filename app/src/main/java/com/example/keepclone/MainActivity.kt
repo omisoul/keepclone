@@ -23,9 +23,18 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
+import java.util.*
+import kotlin.collections.ArrayList
+import kotlin.concurrent.thread
 
-
-
+lateinit var sort:String
+lateinit var db:RoomDB
+var todoList:List<Todo> = emptyList()
+lateinit var todoAdapter: TodoAdapter
 class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelectedListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,17 +46,35 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
         val menu_toggle: ImageButton = findViewById(R.id.menu_toggle)
 
         //Starting database in Main Activity
-        val db = Room.databaseBuilder(this,RoomDB::class.java, "todo_database").build()
+        db = Room.databaseBuilder(this,RoomDB::class.java, "todo_database").build()
         //Starting todoDao
         val todoDao = db.todoDao()
+
         val subtaskDao = db.subtaskDao()
+        todoAdapter = TodoAdapter(todoList,db)
 
 
-        val todoList:ArrayList<Todo> = ArrayList()
         todoRecyclerView.layoutManager = LinearLayoutManager(this)
-        val todoAdapter = TodoAdapter(todoList)
+
+
+
+        GlobalScope.launch{
+            val a_todo = async (Dispatchers.IO) {loadTodos(db)}
+            todoList = a_todo.await()
+            todoAdapter.todos = todoList
+            todoRecyclerView.adapter = todoAdapter
+            todoAdapter.notifyDataSetChanged()
+            removeBackground(todoList,todoRecyclerView)
+
+        }
+
+
+
+
+        val todoAdapter = TodoAdapter(todoList,db)
         todoRecyclerView.adapter = todoAdapter
-        val mActivity = Notificationsss()
+        //val mActivity = Notificationsss()
+
 
 
         val signResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
@@ -67,42 +94,35 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
                 var subtasks = result.data?.getStringArrayListExtra("subtasks")
                 if (title.isNotBlank()){
                     var todo = Todo(title = title,category = category,dueDate = date,notes= notes,isComplete = false,0)
-                    Thread {
-                        todoDao.insertTodo(todo)
-                        val lastAdded = todoDao.getLastAdded()
+
+                    //Coroutine
+                    GlobalScope.launch{
+                        addNewItem(db,todo)
                         if (subtasks != null) {
-                            for (subtask in subtasks){
-                                subtaskDao.insertSubTask(SubtaskViewModel(subtask,lastAdded[0].id,0))
-                            }
-
+                                addNewSubtasks(db,subtasks)
                         }
-                    }.start()
-                    todoList.add(todo)
-                    if (todoList.size > 0) {
-                        todoRecyclerView.visibility = View.VISIBLE
-                        val backgroundImage: ImageView = findViewById(R.id.imageView2)
-                        val text1: TextView = findViewById(R.id.textView2)
-                        val text2: TextView = findViewById(R.id.textView3)
-                        val text3: TextView = findViewById(R.id.textView4)
-                        backgroundImage.visibility = View.GONE
-                        text1.visibility = View.GONE
-                        text2.visibility = View.GONE
-                        text3.visibility = View.GONE
-                        todoAdapter.notifyDataSetChanged()
-                    } else{
-                        todoAdapter.notifyDataSetChanged()
-                    }
+                        val newTodoList = async(Dispatchers.IO) { todoDao.loadAllTodo()}
+                        todoAdapter.todos = newTodoList.await()
 
-                }else{
-                val toast:Toast = Toast.makeText(this,"Title is Empty. Note Canceled",Toast.LENGTH_SHORT)
+
+                    }
+                    todoAdapter.notifyDataSetChanged()
+                    removeBackground(todoAdapter.todos,todoRecyclerView)
+                }else
+                {
+                    val toast:Toast = Toast.makeText(this,"Title is Empty. Note Canceled",Toast.LENGTH_SHORT)
                     toast.show()
                 }
-
             }
+
             else{
                 val toast:Toast = Toast.makeText(this,"Canceled Note",Toast.LENGTH_SHORT)
                 toast.show()
             }
+
+
+
+
         }
         //Set FloatingActionButton Listener
         add_task.setOnClickListener{
@@ -142,6 +162,32 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
+
+        val sort = item.title
+        if (sort == "Work" || sort == "Personal" || sort == "School"){
+            sortByCategory(sort as String,db, todoAdapter)
+        }
+        else if (sort == "Today"){
+            sortbyDate(sort as String,db, todoAdapter)
+        }
+        else if (sort == "All"){
+            GlobalScope.launch {
+                val a_todo = async (Dispatchers.IO) {loadTodos(db)}
+                todoList = a_todo.await()
+                todoAdapter.todos = todoList
+                todoAdapter.notifyDataSetChanged()
+            }
+
+        }
+        else if (sort == "Complete"){
+            sortByCompleated(db, todoAdapter)
+        }
+
+        else if (sort == "Overdue"){
+            sortByOverdue(db, todoAdapter)
+        }
+        return true
+
         Toast.makeText(applicationContext,"${item.title.toString()} was selected",Toast.LENGTH_SHORT).show()
         return when (item.itemId) {
             R.id.sign_in -> {
@@ -153,6 +199,114 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
             else -> true
         }
 
+
+    }
+
+    private fun sortByOverdue(db: RoomDB, adapter: TodoAdapter) {
+        GlobalScope.launch {
+
+            val todos = async (Dispatchers.IO){ getTodoByOverdue(db) }
+
+            adapter.todos = todos.await()
+            adapter.notifyDataSetChanged()
+        }
+    }
+
+    private fun sortByCompleated(db: RoomDB,adapter: TodoAdapter) {
+        GlobalScope.launch {
+
+            val todos = async (Dispatchers.IO){ getTodoByStatus(db) }
+
+            adapter.todos = todos.await()
+            adapter.notifyDataSetChanged()
+        }
+    }
+
+    private fun sortbyDate(date: String, db: RoomDB, adapter: TodoAdapter) {
+        GlobalScope.launch {
+
+            val todos = async (Dispatchers.IO){ getTodoByDate(db) }
+
+            adapter.todos = todos.await()
+            adapter.notifyDataSetChanged()
+        }
+    }
+
+
+    private fun loadTodos(db: RoomDB):List<Todo>{
+
+
+        return db.todoDao().loadAllTodo()
+    }
+
+    private fun addNewItem(db:RoomDB,todo:Todo){
+        db.todoDao().insertTodo(todo)
+
+
+    }
+
+    private fun addNewSubtasks(db: RoomDB, subtasks: ArrayList<String>){
+        val lastAdded = db.todoDao().getLastAdded()
+        for (subtask in subtasks){
+            db.subtaskDao().insertSubTask(SubtaskViewModel(subtask,lastAdded[0].id,0))
+        }
+    }
+
+    private fun removeBackground(todoList:List<Todo>,todoRecyclerView:RecyclerView){
+        if (todoList.isNotEmpty()) {
+            todoRecyclerView.visibility = View.VISIBLE
+            val backgroundImage: ImageView = findViewById(R.id.imageView2)
+            val text1: TextView = findViewById(R.id.textView2)
+            val text2: TextView = findViewById(R.id.textView3)
+            val text3: TextView = findViewById(R.id.textView4)
+            backgroundImage.visibility = View.GONE
+            text1.visibility = View.GONE
+            text2.visibility = View.GONE
+            text3.visibility = View.GONE
+
+        }
+    }
+    fun sortByCategory(category: String,db:RoomDB,adapter: TodoAdapter){
+        GlobalScope.launch {
+
+            val todos = async (Dispatchers.IO){ getTodoByCategory(category,db) }
+
+            adapter.todos = todos.await()
+            adapter.notifyDataSetChanged()
+        }
+    }
+
+    fun getTodoByCategory(category: String,db: RoomDB):List<Todo>{
+        val _todos = db.todoDao().getTodobyCategory(category)
+        return _todos
+    }
+
+    fun getTodoByDate(db: RoomDB):List<Todo>{
+        var date:String = ""
+        val calendar: Calendar = Calendar.getInstance()
+        val day = calendar.get(Calendar.DAY_OF_MONTH)
+        val month = calendar.get(Calendar.MONTH)
+        val year = calendar.get(Calendar.YEAR)
+        date = "Selected $year/${month+1}/$day"
+        val _todos = db.todoDao().getTodobyDueDate(date)
+        println(_todos)
+        return _todos
+    }
+
+    fun getTodoByStatus(db: RoomDB):List<Todo>{
+        return db.todoDao().getCompleteStatus(true)
+    }
+
+    fun getTodoByOverdue(db: RoomDB):List<Todo>{
+        var date:String = ""
+        val calendar: Calendar = Calendar.getInstance()
+        val day = calendar.get(Calendar.DAY_OF_MONTH)
+        val month = calendar.get(Calendar.MONTH)
+        val year = calendar.get(Calendar.YEAR)
+        date = "Selected $year/${month+1}/$day"
+        val _todos = db.todoDao().getTodoByOverdue(date)
+        println(_todos)
+        return _todos
     }
 }
 

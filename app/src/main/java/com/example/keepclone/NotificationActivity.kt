@@ -18,7 +18,7 @@ class NotificationsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_notifications)
         rvNotifications = findViewById(R.id.rvNotifications)
-        getSupportActionBar()?.setDisplayHomeAsUpEnabled(true)
+        getSupportActionBar()?.setDisplayHomeAsUpEnabled(true)}
 
 
         // This commenting out old dummy data Look at notification data base
@@ -76,5 +76,5 @@ class NotificationsActivity : AppCompatActivity() {
             manager.createNotificationChannel(channel)
         }
     }
-
+*/
 }
